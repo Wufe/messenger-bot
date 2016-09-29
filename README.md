@@ -1,2 +1,2 @@
-# messenger-bot
-Simple messenger bot
+# Messenger Bot
+Simple messenger bot written with laravel
