@@ -1,2 +1,2 @@
-# Messenger Bot
-Simple messenger bot written with laravel
+# Alastor - Messenger Bot
+Simple messenger bot
