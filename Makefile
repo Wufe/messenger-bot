@@ -6,3 +6,6 @@ COMPOSE_FILE_DEV := environment/docker-compose/development.yml
 
 start:
 	docker-compose -f $(COMPOSE_FILE_DEV) -p $(APP_NAME) up -d webserver
+
+stop:
+	docker-compose -f $(COMPOSE_FILE_DEV) -p $(APP_NAME) ps -q | xargs docker stop --
