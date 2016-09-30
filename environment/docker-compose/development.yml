@@ -4,19 +4,11 @@ services:
     image: busybox
     volumes:
       - ../../:/app
-  db:
-    image: mysql:5.7
-    environment:
-      - MYSQL_ROOT_PASSWORD=toor
-    volumes:
-      - ../../mysql_data:/var/lib/mysql
   app:
     image: kesshin/php70
     volumes_from:
       - data
     tty: true
-    links:
-      - db:db
     command: php-fpm
   webserver:
     image: nginx
