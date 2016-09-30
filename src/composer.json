@@ -17,31 +17,31 @@
     },
     "autoload": {
         "classmap": [
-            "src/database"
+            "database"
         ],
         "psr-4": {
-            "App\\": "src/app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
         "classmap": [
-            "src/tests/TestCase.php"
+            "tests/TestCase.php"
         ]
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"src/file_exists('.env') || copy('src/.env.example', 'src/.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "php src/artisan key:generate"
+            "php artisan key:generate"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php src/artisan optimize"
+            "php artisan optimize"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php src/artisan optimize"
+            "php artisan optimize"
         ]
     },
     "config": {

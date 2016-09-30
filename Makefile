@@ -7,9 +7,9 @@ COMPOSE_FILE_DEV := environment/docker-compose/development.yml
 install:
 	npm i -g typescript typings
 	npm i
-	composer install
-	composer run-script post-root-package-install
-	composer run-script post-create-project-cmd
+	cd src && composer install
+	cd src && composer run-script post-root-package-install
+	cd src && composer run-script post-create-project-cmd
 
 start:
 	docker-compose -f $(COMPOSE_FILE_DEV) -p $(APP_NAME) up -d webserver
