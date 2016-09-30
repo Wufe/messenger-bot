@@ -14,7 +14,7 @@ class FacebookWebhookController extends Controller
 
 		Log::info( $request->fullUrl()."\n".print_r($request->all(),true) );
 		$isHubModeValid = $request->has( "hub_mode" ) && $request->hub_mode === "subscribe";
-		$isConfigurationKeyValid = $request->has( "hub_verify_token" ) && $request->hub_verify_token === config("app.key");
+		$isConfigurationKeyValid = $request->has( "hub_verify_token" ) && $request->hub_verify_token == config("app.key");
 		$hasHubChallenge = $request->has( "hub_challenge" );
 		if( $isHubModeValid && $isConfigurationKeyValid && $hasHubChallenge ){
 			Log::info( "Validated webhook with challenge ".$request->hub_challenge."." );
