@@ -9,6 +9,9 @@ services:
     volumes_from:
       - data
     tty: true
+    volumes:
+      - ../configuration/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ../configuration/php/config/www.conf:/usr/local/etc/php-fpm.d/www.conf
     command: php-fpm
   webserver:
     image: nginx

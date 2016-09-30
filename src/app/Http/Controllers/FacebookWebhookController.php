@@ -8,7 +8,8 @@ use App\Http\Requests;
 
 class FacebookWebhookController extends Controller
 {
-	public function validateWebhook(){
+	public function validateWebhook( Request $request ){
+		file_put_contents( "log.txt", $request->fullUrl().print_r($request->all(),true) );
 		return response()->json([ "status" => "ok" ], 200);
 	}
  //    app.get('/webhook', function(req, res) {
