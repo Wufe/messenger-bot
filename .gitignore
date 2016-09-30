@@ -8,3 +8,5 @@ composer.lock
 .env
 /npm-debug.log
 /mysql_data
+/src/resources/assets/*.bundle.js
+/src/resources/assets/*.chunk.js

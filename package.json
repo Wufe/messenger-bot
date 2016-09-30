@@ -8,6 +8,8 @@
     ]
   },
   "scripts": {
+    "pack": "webpack --config environment/dev.webpack.js",
+    "pack:watch": "npm run -s pack -- --watch",
     "gulp": "gulp --gulpfile environment/gulp.babel.js",
     "prod": "gulp --production",
     "dev": "gulp watch"
@@ -34,7 +36,12 @@
     "laravel-elixir-vue": "^0.1.4",
     "laravel-elixir-webpack-official": "^1.0.2",
     "lodash": "^4.14.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.2",
+    "typings": "^1.4.0",
     "url-loader": "^0.5.7",
     "vue": "^1.0.26",
     "vue-resource": "^0.9.3",

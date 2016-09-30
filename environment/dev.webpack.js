@@ -1,12 +1,21 @@
 var webpack = require( 'webpack' );
 var path = require( 'path' );
 
+var typescriptLoader = {
+    test: /\.tsx?$/,
+    exclude: /(node_modules|bower_components)/,
+    loader: 'ts-loader'
+};
+
 module.exports = {
     context: path.join( __dirname, '..' ),
     devtool: "eval",
+    resolve: {
+        extensions: [ "", ".webpack.js", ".web.js", ".ts", ".tsx", ".js" ]
+    },
     entry: {
-        main: "./src/frontend/index.js",
-        vendor: [ 'react', 'react-dom', 'react-router', 'moment', 'jquery' ]
+        main: "./src/frontend/index.tsx",
+        vendor: []
     },
     output: {
         publicPath: "/",
@@ -17,15 +26,7 @@ module.exports = {
     target: 'web',
     module: {
         loaders: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: [ 'react', 'es2015', 'stage-0' ],
-                    plugins: [ 'react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy' ]
-                }
-            },
+            typescriptLoader,
             {
                 test: /\.css$/,
                 loader: 'style!css!'
@@ -40,5 +41,9 @@ module.exports = {
             }
         ]
     },
-    plugins: []
+    plugins: [],
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    }
 };
