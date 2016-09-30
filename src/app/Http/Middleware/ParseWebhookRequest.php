@@ -16,6 +16,7 @@ class ParseWebhookRequest
      */
     public function handle($request, Closure $next)
     {
+        $return = [];
         $hasObject = $request->has( 'object' );
         if( !$hasObject )
             return response()->fail( "No object parameter.", 400 );
@@ -27,9 +28,37 @@ class ParseWebhookRequest
             return response()->fail( "No entry.", 400 );
         $entry = $request->entry;
         foreach( $entry as $pageEntry ){
-            //$pageID = $pageEntry[ 'id' ];
-            Log::info( print_r( $entry, true ) );
+
+            Log::info( print_r( $pageEntry, true ) );
+
+            $pageID = $pageEntry[ 'id' ];
+            $timeOfEvent = $pageEntry[ 'time' ];
+
+            $messaging = $pageEntry[ 'messaging' ];
+            foreach( $messaging as $messagingEvent ){
+                if( isset( $messagingEvent[ "message" ] ) ){
+                    $return[] = [
+                        "type" => "message",
+                        "payload" => $messagingEvent
+                    ];
+                }elseif( isset( $messagingEvent[ "optin" ] ) ){
+                    $return[] = [
+                        "type" => "optin",
+                        "payload" => $messagingEvent
+                    ];
+                }elseif( isset( $messagingEvent[ "delivery" ] ) ){
+                    $return[] = [
+                        "type" => "delivery",
+                        "payload" => $messagingEvent
+                    ];
+                }elseif( isset( $messagingEvent[ "postback" ] ) ){
+                    $return[] = [
+                        "type" => "postback",
+                        "payload" => $messagingEvent
+                    ];
+                }
+            }
         }
-        return $next($request);
+        return $next($request, $return);
     }
 }
