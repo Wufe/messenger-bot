@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Log;
 class FacebookWebhookController extends Controller
 {
 	public function validateWebhook( Request $request ){
+
 		Log::info( $request->fullUrl()."\n".print_r($request->all(),true) );
-		return response()->json([ "status" => "ok" ], 200);
+		return response()->json([ "status" => "ok", "fullUrl" => $request->fullUrl(), "all" => $request->all() ], 200);
 	}
  //    app.get('/webhook', function(req, res) {
 	//   if (req.query['hub.mode'] === 'subscribe' &&
