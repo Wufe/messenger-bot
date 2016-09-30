@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Log;
+
 class FacebookWebhookController extends Controller
 {
 	public function validateWebhook( Request $request ){
-		file_put_contents( "log.txt", $request->fullUrl().print_r($request->all(),true) );
+		Log::info( $request->fullUrl()."\n".print_r($request->all(),true) );
 		return response()->json([ "status" => "ok" ], 200);
 	}
  //    app.get('/webhook', function(req, res) {
