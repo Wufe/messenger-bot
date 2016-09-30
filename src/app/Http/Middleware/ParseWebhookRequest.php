@@ -28,9 +28,6 @@ class ParseWebhookRequest
             return response()->fail( "No entry.", 400 );
         $entry = $request->entry;
         foreach( $entry as $pageEntry ){
-
-            Log::info( print_r( $pageEntry, true ) );
-
             $pageID = $pageEntry[ 'id' ];
             $timeOfEvent = $pageEntry[ 'time' ];
 
@@ -41,6 +38,7 @@ class ParseWebhookRequest
                         "type" => "message",
                         "payload" => $messagingEvent
                     ];
+                    Log::info( $messagingEvent[ "message" ][ "text" ] );
                 }elseif( isset( $messagingEvent[ "optin" ] ) ){
                     $return[] = [
                         "type" => "optin",
