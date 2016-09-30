@@ -20,6 +20,15 @@ class FacebookWebhookController extends Controller
 			Log::info( "Validated webhook with challenge ".$request->hub_challenge."." );
 			return response( $request->hub_challenge );
 		}else{
+			if( !$isHubModeValid ){
+				Log::info( "Hub mode not valid." );
+			}
+			if( !$isConfigurationKeyValid ){
+				Log::info( "Configuration key not valid." );
+			}
+			if( !$hasHubChallenge ){
+				Log::info( "Challenge missing." );
+			}
 			Log::info( "Failed webhook validation." );
 			return response(403);
 		}
