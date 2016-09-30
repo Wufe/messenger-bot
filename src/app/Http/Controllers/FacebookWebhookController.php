@@ -30,7 +30,7 @@ class FacebookWebhookController extends Controller
 				Log::info( "Challenge missing." );
 			}
 			Log::info( "Failed webhook validation." );
-			return response(403);
+			return response(null, 403);
 		}
 		
 		//if( $request->has( "hub_mode" ))
@@ -40,6 +40,7 @@ class FacebookWebhookController extends Controller
 	public function receiveRequest( Request $request ){
 		Log::info( print_r( $request->all(), true ) );
 		file_put_contents("log.txt", print_r($request->all(), true));
+		return response()->success();
 	}
  //    app.get('/webhook', function(req, res) {
 	//   if (req.query['hub.mode'] === 'subscribe' &&

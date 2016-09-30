@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index');
 Route::get(
 	'/webhook',
 	'FacebookWebhookController@validateWebhook'
-)->middleware( 'webhook' );
+);
 Route::post(
 	'/webhook',
 	'FacebookWebhookController@receiveRequest'
