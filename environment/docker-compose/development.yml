@@ -19,4 +19,4 @@ services:
     volumes:
       - ../configuration/nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - 80:80
+      - 8083:80
