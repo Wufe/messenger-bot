@@ -36,6 +36,11 @@ class FacebookWebhookController extends Controller
 		//if( $request->has( "hub_mode" ))
 		//return response()->json([ "status" => "ok", "config" => config("app.key"), "fullUrl" => $request->fullUrl(), "all" => $request->all() ], 200);
 	}
+
+	public function receiveRequest( Request $request ){
+		Log::info( print_r( $request->all(), true ) );
+		file_put_contents("log.txt", print_r($request->all(), true));
+	}
  //    app.get('/webhook', function(req, res) {
 	//   if (req.query['hub.mode'] === 'subscribe' &&
 	//       req.query['hub.verify_token'] === VALIDATION_TOKEN) {
