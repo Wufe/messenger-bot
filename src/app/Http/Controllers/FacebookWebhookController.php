@@ -38,8 +38,6 @@ class FacebookWebhookController extends Controller
 	}
 
 	public function receiveRequest( Request $request ){
-		Log::info( print_r( $request->all(), true ) );
-		file_put_contents("log.txt", print_r($request->all(), true));
 		return response()->success();
 	}
  //    app.get('/webhook', function(req, res) {
