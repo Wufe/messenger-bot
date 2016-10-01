@@ -37,7 +37,10 @@ class FacebookWebhookController extends Controller
 		//return response()->json([ "status" => "ok", "config" => config("app.key"), "fullUrl" => $request->fullUrl(), "all" => $request->all() ], 200);
 	}
 
-	public function receiveRequest( Request $request ){
+	public function receiveRequest( Request $request, $payload = [] ){
+		foreach( $payload as $messege ){
+			
+		}
 		return response()->success();
 	}
  //    app.get('/webhook', function(req, res) {
