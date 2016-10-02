@@ -52,7 +52,7 @@ class FacebookWebhookController extends Controller
 								$sender = $message["sender"]["id"];
 								$text = $message["message"]["text"];
 								if( $text == "ciao" )
-									$text = "Ciao, come stai.";
+									$text = "Ciao, come stai?";
 								$this->sendTextMessage( $sender, $text );
 						}else{
 							Log::info( "data missing" );

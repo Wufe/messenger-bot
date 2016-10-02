@@ -105,6 +105,7 @@ return [
 
     'key' => env('APP_KEY'),
     'page_key' => env('PAGE_KEY', 'dummy'),
+    'page_id'  => env('PAGE_ID', '' ),
 
     'cipher' => 'AES-256-CBC',
 

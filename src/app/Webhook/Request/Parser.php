@@ -73,15 +73,28 @@
 		}
 
 		private function checkPageEntry( $entry ){
-			$hasPageID = isset( $entry['id'] );
-			if( !$hasPageID )
-				throw new Exceptions\DataMissingException( 'entry.id' );
+			$this->checkPage( $entry );
 			$hasTime = isset( $entry['time'] );
 			if( !$hasTime )
 				throw new Exceptions\DataMissingException( 'entry.time' );
 			$hasMessaging = isset( $entry['messaging'] );
 			if( !$hasMessaging )
 				throw new Exceptions\DataMissingException( 'entry.messaging' );
+		}
+
+		private function checkPage( $entry ){
+			$hasPageID = isset( $entry['id'] );
+			if( !$hasPageID )
+				throw new Exceptions\DataMissingException( 'entry.id' );
+			$environmentPageID = config( 'app.page_id' );
+			if( $environmentPageID ){
+				$pageID = $entry['id'];
+				
+				if( $pageID != $environmentPageID ){
+					throw new Exceptions\NotAuthorizedException();	
+				}
+			}
+			
 		}
 
 		private function checkMessagingEventType( $messagingEvent ){
