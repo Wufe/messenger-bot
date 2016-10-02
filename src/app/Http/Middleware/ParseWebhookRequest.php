@@ -60,7 +60,6 @@ class ParseWebhookRequest
         $request->merge([
             "messages" => $return
         ]);
-        //dd( $return );
         return $next($request);
     }
 }

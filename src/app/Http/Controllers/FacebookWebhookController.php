@@ -44,7 +44,7 @@ class FacebookWebhookController extends Controller
 			foreach( $payload as $message ){
 				if( isset( $message["type"] ) ){
 					$messageType = $message["type"];
-					if($messageType){
+					if($messageType=="message"){
 						if( isset( $message["payload"] ) ){
 						//if( isset( $message["payload"] ) ){
 							if( isset( $message["payload"]["sender"] ) &&
