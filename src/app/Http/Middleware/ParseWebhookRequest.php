@@ -57,7 +57,9 @@ class ParseWebhookRequest
                 }
             }
         }
-        $request->attributes->add( "messages", $return );
+        $request->merge([
+            "messages", $return
+        ]);
         return $next($request);
     }
 }
