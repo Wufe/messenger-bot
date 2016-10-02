@@ -39,13 +39,15 @@ class FacebookWebhookController extends Controller
 	}
 
 	public function receiveRequest( Request $request ){
-		$payload = $request->messages;
-		foreach( $payload as $message ){
-			$messageType = $message["type"];
-			if($messageType){
-				$sender = $message["payload"]["sender"]["id"];
-				$text = $message["payload"]["message"]["text"];
-				$this->sendTextMessage( $sender, $text );
+		if( $request->has( 'messages' ) ){
+			$payload = $request->messages;
+			foreach( $payload as $message ){
+				$messageType = $message["type"];
+				if($messageType){
+					$sender = $message["payload"]["sender"]["id"];
+					$text = $message["payload"]["message"]["text"];
+					$this->sendTextMessage( $sender, $text );
+				}
 			}
 		}
 		return response()->success();
