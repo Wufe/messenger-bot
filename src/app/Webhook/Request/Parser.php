@@ -64,12 +64,34 @@
 					$this->checkPageEntry( $entry );
 					$messagingEvents = $entry['messaging'];
 					foreach( $messagingEvents as $messagingEvent ){
-						$messagingEventType = $this->checkMessagingEventType( $messagingEvent );
-						$messagingEvent['type'] = $messagingEventType;
-						$this->parsedPayload[] = $messagingEvent;
+						$this->manageMessagingEvent( $messagingEvent );
 					}
 				}catch( Exceptions\WebhookException $e ){}
 			}
+		}
+
+		private function manageMessagingEvent( $messagingEvent ){
+			$messagingEventType = $this->getMessagingEventType( $messagingEvent );
+			$messagingEvent['type'] = $messagingEventType;
+			$this->checkMessagingEvent( $messagingEvent );
+			$this->parsedPayload[] = $messagingEvent;
+		}
+
+		private function checkMessagingEvent( $messagingEvent ){
+			$hasSender = isset( $messagingEvent['sender'] );
+			if( !$hasSender )
+				throw new Exceptions\DataMissingException( 'event.sender' );
+			$sender = $messagingEvent['sender'];
+			$hasSenderID = isset( $sender['id'] );
+			if( !$hasSenderID )
+				throw new Exceptions\DataMissingException( 'event.sender.id' );
+			$hasMessage = isset( $messagingEvent['message'] );
+			if( !$hasMessage )
+				throw new Exceptions\DataMissingException( 'event.message' );
+			$message = $messagingEvent['message'];
+			$hasMessageText = isset( $message['text'] );
+			if( !$hasMessageText )
+				throw new Exceptions\DataMissingException( 'event.message.text' );
 		}
 
 		private function checkPageEntry( $entry ){
@@ -97,7 +119,7 @@
 			
 		}
 
-		private function checkMessagingEventType( $messagingEvent ){
+		private function getMessagingEventType( $messagingEvent ){
 			if( isset( $messagingEvent[self::EVENT_MESSAGE] ) )
 				return self::EVENT_MESSAGE;
 			if( isset( $messagingEvent[self::EVENT_OPTIN] ) )

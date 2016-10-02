@@ -42,25 +42,14 @@ class FacebookWebhookController extends Controller
 		if( $request->has( 'messages' ) ){
 			$payload = $request->messages;
 			foreach( $payload as $message ){
-				if( isset( $message["type"] ) ){
-					$messageType = $message["type"];
-					if($messageType=="message"){
-						if( isset( $message["sender"] ) &&
-							isset( $message["sender"][ "id" ] ) &&
-							isset( $message["message"] ) &&
-							isset( $message["message"]["text"] ) ){
-								$sender = $message["sender"]["id"];
-								$text = $message["message"]["text"];
-								if( $text == "ciao" )
-									$text = "Ciao, come stai?";
-								$this->sendTextMessage( $sender, $text );
-						}else{
-							Log::info( "data missing" );
-						}
-						
-					}
+				$messageType = $message['type'];
+				if($messageType=="message"){
+					$sender = $message["sender"]["id"];
+					$text = $message["message"]["text"];
+					if( $text == "ciao" )
+						$text = "Ciao, come stai?";
+					$this->sendTextMessage( $sender, $text );
 				}
-				
 			}
 		}
 		return response()->success();
