@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Config;
+
 use Illuminate\Support\Facades\Log;
+
+use Requests as HttpRequest;
 
 class FacebookWebhookController extends Controller
 {
@@ -32,25 +36,36 @@ class FacebookWebhookController extends Controller
 			Log::info( "Failed webhook validation." );
 			return response(null, 403);
 		}
-		
-		//if( $request->has( "hub_mode" ))
-		//return response()->json([ "status" => "ok", "config" => config("app.key"), "fullUrl" => $request->fullUrl(), "all" => $request->all() ], 200);
 	}
 
 	public function receiveRequest( Request $request, $payload = [] ){
-		foreach( $payload as $messege ){
-			
+		foreach( $payload as $message ){
+			if( $message[ "type" ] == "message" ){
+				$sender = $message[ "payload" ][ "sender" ][ "id" ];
+				$text = $message[ "payload" ][ "message" ][ "text" ];
+				$this->sendTextMessage( $sender, $text );
+			}
 		}
 		return response()->success();
 	}
- //    app.get('/webhook', function(req, res) {
-	//   if (req.query['hub.mode'] === 'subscribe' &&
-	//       req.query['hub.verify_token'] === VALIDATION_TOKEN) {
-	//     console.log("Validating webhook");
-	//     res.status(200).send(req.query['hub.challenge']);
-	//   } else {
-	//     console.error("Failed validation. Make sure the validation tokens match.");
-	//     res.sendStatus(403);          
-	//   }  
-	// });
+
+	public function sendTextMessage( $recipient, $message ){
+		$messageData = [
+			"recipient" => [
+				"id" => $recipient
+			],
+			"message" => [
+				"text" => $message
+			]
+		];
+		return $this->callSendAPI( $messageData );
+	}
+
+	private function callSendAPI( $messageData ){
+		$pageKey = config("app.page_key");
+		$headers = [ 'Content-Type' => 'application/json' ];
+		$uri = "https://graph.facebook.com/v2.6/me/messages?access_token=".$pageKey;
+		$response = HttpRequest::post( $uri, $headers, json_encode( $messageData ) );
+		return response( $response->body );
+	}
 }
