@@ -38,7 +38,9 @@ class FacebookWebhookController extends Controller
 		}
 	}
 
-	public function receiveRequest( Request $request, $payload = [] ){
+	public function receiveRequest( Request $request ){
+		$payload = $request->attributes->messages;
+		Log::info( "######\n".print_r( $payload, true )."######\n" );
 		foreach( $payload as $message ){
 			if( $message[ "type" ] == "message" ){
 				$sender = $message[ "payload" ][ "sender" ][ "id" ];
