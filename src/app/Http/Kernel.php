@@ -52,6 +52,6 @@ class Kernel extends HttpKernel
         'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'webhook' => \App\Http\Middleware\ParseWebhookRequest::class,
+        'webhook' => \App\Http\Middleware\Webhook::class,
     ];
 }
