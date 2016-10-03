@@ -1,16 +1,18 @@
 import * as React from 'react';
 
 export interface AppProps {
-	compiler: string;
-	framework: string;
+	children: any;
 }
 
 class App extends React.Component<AppProps, {}>{
 	render(){
 		return (
-			<h1>
-				Alastor!
-			</h1>
+			<div>
+				<h1>
+					Alastor.
+				</h1>
+				{this.props.children}
+			</div>
 		);
 	}
 }

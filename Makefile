@@ -7,6 +7,7 @@ COMPOSE_FILE_DEV := environment/docker-compose/development.yml
 install:
 	npm i -g typescript typings
 	npm i
+	typings install
 	cd src && composer install
 	cd src && composer run-script post-root-package-install
 	cd src && composer run-script post-create-project-cmd

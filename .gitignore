@@ -10,3 +10,4 @@ composer.lock
 /mysql_data
 *.bundle.js
 *.chunk.js
+/typings
